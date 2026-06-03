@@ -1,0 +1,61 @@
+[project]
+name = "partnersim-dynet-sti"
+version = "0.1.0"
+description = "Agent-based dynamic partnership network simulation for STI transmission"
+authors = [
+    {name = "Priyanka Nair-Turkich", email = "priyanka.nairturkich@student.unimelb.edu.au"},
+]
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "numpy (>=1.26,<3.0)",
+    "pandas (>=2.0,<3.0)",
+    "pyarrow (>=15.0,<22.0)",
+    "networkx (>=3.2,<4.0)",
+    "agentpy (>=0.1.5,<1.0)",
+    "partnersim-dynet",
+]
+
+[tool.poetry]
+packages = [{ include = "partnersim_dynet_sti", from = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+partnersim-dynet = { git = "git@github.com:pnt-id-models/partnersim-dynet.git", rev = "69cec439924b1fa5b7260a9f6d2670258bd6fd58" }
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0"
+pytest-cov = "^5.0"
+ruff = "^0.13"
+mypy = "^1.0"
+ipykernel = "^6.0"
+pre-commit = "^4.0"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "-v --cov=partnersim_dynet_sti --cov-report=term-missing"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "B", "UP", "N", "SIM"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
+ignore_missing_imports = true
+
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"
